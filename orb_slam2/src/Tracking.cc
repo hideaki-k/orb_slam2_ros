@@ -163,6 +163,11 @@ void Tracking::SetLoopClosing(LoopClosing *pLoopClosing)
 
 
 
+//引数として画像とタイムスタンプがsystem::TruckMonocular()から渡される
+//画像をグレースケールに変換
+//Frame構築
+//Tracking::Truck()関数呼び出し
+//カメラの姿勢を返す
 
 cv::Mat Tracking::GrabImageMonocular(const cv::Mat &im, const double &timestamp)
 {
@@ -185,8 +190,16 @@ cv::Mat Tracking::GrabImageMonocular(const cv::Mat &im, const double &timestamp)
 
     if(mState==NOT_INITIALIZED || mState==NO_IMAGES_YET)
         mCurrentFrame = Frame(mImGray,timestamp,mpIniORBextractor,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
+    //mImGray=グレースケール画像
+    //timestamp=タイムスタンプ
+
     else
         mCurrentFrame = Frame(mImGray,timestamp,mpORBextractorLeft,mpORBVocabulary,mK,mDistCoef,mbf,mThDepth);
+    //mImGray=グレースケール画像
+    //timestamp=タイムスタンプ
+    //mpORBextractorLeft=ORB検出器(Frameコンストラクタ内で使用)
+    //mpORBVocabulary=visualVocabulary
+
 
     Track();
 
