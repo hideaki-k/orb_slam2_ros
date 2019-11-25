@@ -27,7 +27,11 @@
 
 namespace ORB_SLAM2
 {
-
+//strVocFile=visualwordファイル,
+//strsettingFile=カメラparameterファイル
+//esensor sensor=カメラ種類
+//mapfile=マップ
+//load_map=画面表示?
 System::System(const string strVocFile, const string strSettingsFile, const eSensor sensor,
                const std::string & map_file, bool load_map): // map serialization addition
                mSensor(sensor), mbReset(false),mbActivateLocalizationMode(false), mbDeactivateLocalizationMode(false),
@@ -44,10 +48,10 @@ System::System(const string strVocFile, const string strSettingsFile, const eSen
 
     if(mSensor==MONOCULAR)
         cout << "Monocular" << endl;
-    else if(mSensor==STEREO)
-        cout << "Stereo" << endl;
-    else if(mSensor==RGBD)
-        cout << "RGB-D" << endl;
+    //else if(mSensor==STEREO)
+    //    cout << "Stereo" << endl;
+    //else if(mSensor==RGBD)
+     //   cout << "RGB-D" << endl;
 
     //Check settings file
     cv::FileStorage fsSettings(strSettingsFile.c_str(), cv::FileStorage::READ);
