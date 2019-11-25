@@ -199,7 +199,9 @@ cv::Mat Tracking::GrabImageMonocular(const cv::Mat &im, const double &timestamp)
     //timestamp=タイムスタンプ
     //mpORBextractorLeft=ORB検出器(Frameコンストラクタ内で使用)
     //mpORBVocabulary=visualVocabulary
-
+    //mk=カメラ行列
+    //mDistCoef=歪行列
+    //mbf,mThDepth=monocularでは使用しない
 
     Track();
 
