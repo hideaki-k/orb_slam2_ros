@@ -95,18 +95,18 @@ System::System(const string strVocFile, const string strSettingsFile, const eSen
         std::cout << "Using loaded map with " << mpMap->MapPointsInMap() << " points\n" << std::endl;
     }
     else {
-        //Create KeyFrame Database
+        //引数にvisualVocabularyを与えてDB生成
         mpKeyFrameDatabase = new KeyFrameDatabase(*mpVocabulary);
-        //Create the Map
+        //Map生成
         mpMap = new Map();
     }
     // end map serialization addition
 
-    //Create Drawers. These are used by the Viewer
+    //カメラからの映像にORBを描画する画面
     mpFrameDrawer = new FrameDrawer(mpMap);
 
-    //Initialize the Tracking thread
-    //(it will live in the main thread of execution, the one that called this constructor)
+    //trackingスレを初期化
+    //描画画面、visualvocabulary,keyframeDB,Mapカメラparameter、等を引数に与える）
     mpTracker = new Tracking(this, mpVocabulary, mpFrameDrawer,
                              mpMap, mpKeyFrameDatabase, strSettingsFile, mSensor);
 
