@@ -110,15 +110,15 @@ System::System(const string strVocFile, const string strSettingsFile, const eSen
     mpTracker = new Tracking(this, mpVocabulary, mpFrameDrawer,
                              mpMap, mpKeyFrameDatabase, strSettingsFile, mSensor);
 
-    //Initialize the Local Mapping thread and launch
+    //mapを渡してlocalMappingインスタンスを形成し新規スレッドでrunを実行
     mpLocalMapper = new LocalMapping(mpMap, mSensor==MONOCULAR);
     mptLocalMapping = new thread(&ORB_SLAM2::LocalMapping::Run,mpLocalMapper);
 
-    //Initialize the Loop Closing thread and launch
+    //mapとvocabularyとloopclosingインスタンス を生成し、新規スレッドでrun()を実行
     mpLoopCloser = new LoopClosing(mpMap, mpKeyFrameDatabase, mpVocabulary, mSensor!=MONOCULAR);
     mptLoopClosing = new thread(&ORB_SLAM2::LoopClosing::Run, mpLoopCloser);
 
-    //Set pointers between threads
+    //スレッド間相互参照設定
     mpTracker->SetLocalMapper(mpLocalMapper);
     mpTracker->SetLoopClosing(mpLoopCloser);
 
@@ -134,7 +134,7 @@ System::System(const string strVocFile, const string strSettingsFile, const eSen
 
 
 
-
+//カメラから取得した画像cv::Matを引数としてタイムスタンプ8timestamp)と一緒に入力
 void System::TrackMonocular(const cv::Mat &im, const double &timestamp)
 {
     if(mSensor!=MONOCULAR)
